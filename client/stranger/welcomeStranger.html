@@ -89,9 +89,9 @@
 					 Go ahead!
 				</p>
 				<div class="controls-row">
-					<form class="tasks">
+					<form class="tasks" id="">
 						<input class="span9 newTask" type="text" placeholder="My task">
-						<button class="btn span3" type="submit">Add Task!</button>
+						<button class="btn span3 whatthe" type="submit">Add Task!</button>
 					</form>
 				</div>
 				<div class="row-fluid">
@@ -121,10 +121,10 @@
 			<div style="color:#EEE;height:520px;width:100%">
 				<div style="position:relative;width:500px;margin:auto">
 					<div style="position:absolute;left:10px;top:10px">
-						<input class="knob minute" data-min="0" data-max="25" data-bgcolor="#ddd" data-fgcolor="#244AA3" data-width="500" data-height="500" data-thickness=".3">
+						<input class="knob minute" data-min="0" data-max="25" data-bgcolor="#ddd" data-fgcolor="#244AA3" data-width="500" data-height="500" data-thickness=".3" data-readonly="true">
 					</div>
 					<div style="position:absolute;left:110px;top:110px">
-						<input class="knob second" data-min="0" data-max="60" data-bgcolor="#ddd" data-displayinput=true data-width="300" data-height="300" data-thickness=".45" data-fgcolor="#3B4B70">
+						<input class="knob second" data-min="0" data-max="60" data-bgcolor="#ddd" data-displayinput=true data-width="300" data-height="300" data-thickness=".45" data-fgcolor="#3B4B70" data-readonly="true">
 					</div>
 				</div>
 			</div>
@@ -160,7 +160,7 @@
 				</div>
 				<div class="row-fluid">
 					<ul class="pull-left text-left">
-						 {{#isolate}} {{#with log}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+						 {{#isolate}} {{#with previousLog}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
 					</ul>
 				</div>
 
@@ -248,7 +248,7 @@
 				</div>
 				<div class="row-fluid">
 					<ul class="pull-left text-left">
-						 {{#isolate}} {{#with log}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+						 {{#isolate}} {{#with previousLog}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
 					</ul>
 				</div>
 

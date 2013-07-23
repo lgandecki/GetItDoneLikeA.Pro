@@ -1,4 +1,4 @@
-_renderer = null, futureDate = null, timerFunction = "firstTask";
+_renderer = null, futureDate = null, timerFunction = "firstStrangerLog";
 clockTicking = null, alarm = null;
 currentLogId = null;
 taskId = null;
@@ -10,11 +10,17 @@ Template.welcomeStranger.created = function() {
 
 Template.welcomeStranger.events({
 	'submit .tasks': function(e, template) {
+		console.log("so we are not even here?");
 		e.preventDefault();
-		_newTask = $(".newTask").val()
+		_newTask = $(".newTask").val();
 		if (_newTask && _newTask !== "") {
 			_strangerId = Session.get("strangerId");
-			taskId = Meteor.call("addStrangerTask", _newTask, _strangerId, currentLogId, function(error, id) {
+			_taskOpts = {
+				newTask: _newTask,
+				strangerId: _strangerId,
+				logId: Session.get("currentLogId")
+			}
+			Meteor.call("addTask", _taskOpts, function(error, id) {
 				if (error) {
 					console.log("weird error", error);
 				} else {
@@ -28,9 +34,7 @@ Template.welcomeStranger.events({
 				currentLogId = id;
 				Session.set("currentLogId", currentLogId);
 			});
-			console.log("what about here? ", taskId);
 		}
-		console.log("submit it!");
 		setTimeout(function() {
 			console.log("currentLogId ", currentLogId);
 		}, 100);
@@ -49,7 +53,11 @@ Template.welcomeStranger.events({
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
 			clockTicking.play();
-			Meteor.call("startStrangerTask", _now, _strangerId, currentLogId);
+			_logOpts = {
+				strangerId: _strangerId,
+				logId: Session.get("currentLogId")
+			}
+			Meteor.call("startLog", _logOpts);
 		});
 
 	},
@@ -84,7 +92,11 @@ Template.welcomeStranger.events({
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
 			clockTicking.play();
-			Meteor.call("startStrangerTask", _now, _strangerId, currentLogId);
+			_taskOpts = {
+				strangerId: _strangerId,
+				logId: Session.get("currentLogId")
+			};
+			Meteor.call("startLog", _taskOpts);
 		});
 	},
 	'click .btn-startLast': function(e, template) {
@@ -97,7 +109,11 @@ Template.welcomeStranger.events({
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
 			clockTicking.play();
-			Meteor.call("startStrangerTask", _now, _strangerId, currentLogId);
+			_logOpts = {
+				strangerId: _strangerId,
+				logId: Session.get("currentLogId")
+			};
+			Meteor.call("startLog", _logOpts);
 			$(".afterThirdHide").hide();
 		});
 	}
@@ -106,7 +122,12 @@ Template.welcomeStranger.events({
 addTask = function(newTask) {
 	if (newTask && newTask !== "") {
 		_strangerId = Session.get("strangerId");
-		Meteor.call("addStrangerTask", newTask, _strangerId, currentLogId, function(error, id) {
+		_taskOpts = {
+			newTask: newTask,
+			strangerId: Session.get("strangerId"),
+			logId: Session.get("currentLogId")
+		}
+		Meteor.call("addTask", _taskOpts, function(error, id) {
 			if (error) {
 				console.log("weird error", error);
 			} else {
@@ -120,14 +141,16 @@ addTask = function(newTask) {
 
 addDone = function(newDone) {
 	if (newDone && newDone !== "") {
-		_strangerId = Session.get("strangerId");
-		Meteor.call("addStrangerDone", newDone, _strangerId, currentLogId, function(error, id) {
+		_doneOpts = {
+			newDone: newDone,
+			strangerId: _strangerId,
+			logId: Session.get("previousLogId")
+		};
+		Meteor.call("addDone", _doneOpts, function(error, id) {
 			if (error) {
 				console.log("weird error", error);
 			} else {
 				$(".newNextDone").val("");
-								currentLogId = id;
-				Session.set("currentLogId", currentLogId);
 			}
 		});
 	}
@@ -169,54 +192,96 @@ timer = function() {
 		$mm = $(".minute");
 	$ss.val(_dsec).trigger("change");
 	$mm.val(_dmin).trigger("change");
-	if (_dmin === 0 && _dsec < 1) {
-		if (timerFunction === "firstTask") {
-			_now = new Date();
-			alarm = $("#alarm")[0];
-			alarm.load();
-			alarm.play();
-			futureDate = new Date(_now.getTime() + 1 * 20000);
-			// Ring
-			$(".secondStrangerLog").slideDown();
-			timerFunction = "rest";
-			_strangerId = Session.get("strangerId");
-			Meteor.call("endStrangerTask", _now, _strangerId, currentLogId);
-
-			Session.set("previousLogId", currentLogId);
-			currentLogId = null;
-
-			setTimeout("timer()", 1000);
+	if (_dsec < 1 && _dmin === 0) {
+		if (timerFunction === "firstStrangerLog") {
+			afterFirstStrangerLog();
 		} else if (timerFunction === "rest") {
-			alarm.play();
-			clockTicking.pause();
-			timerFunction = "nextTask";
-			// Ring
+			afterRest();
 		} else if (timerFunction === "stopped") {
-			clockTicking.pause();
-			_strangerId = Session.get("strangerId");
-			_now = new Date();
-			Meteor.call("stopStrangerTask", _now, _strangerId, currentLogId);
+			afterStopped();
 
-			Session.set("previousLogId", currentLogId);
-			currentLogId = null;
-
-		} else if (timerFunction === "nextTask") {
-			_now = new Date();
-			alarm = $("#alarm")[0];
-			alarm.load();
-			alarm.play();
-			futureDate = new Date(_now.getTime() + 1 * 20000);
-			// Ring
-			timerFunction = "rest";
-			_strangerId = Session.get("strangerId");
-			Meteor.call("endStrangerTask", _now, _strangerId, currentLogId);
-			Session.set("previousLogId", currentLogId);
-			currentLogId = null;
-			$(".afterSecondStrangerLog").slideDown();
-
-			setTimeout("timer()", 1000);
+		} else if (timerFunction === "nextLog") {
+			nextLog();
 		}
 	} else {
 		setTimeout("timer()", 1000);
 	}
+}
+
+
+afterFirstStrangerLog = function() {
+
+			ringAlarm();
+
+			setFutureDate(0.1);
+			
+			$(".secondStrangerLog").slideDown();
+
+			timerFunction = "rest";
+
+			_logOpts = {
+				strangerId: Session.get("strangerId"),
+				logId: Session.get("currentLogId")
+			}
+			Meteor.call("endLog", _logOpts);
+
+			Session.set("previousLogId", currentLogId);
+			currentLogId = null;
+			Session.set("currentLogId", currentLogId);
+
+			setTimeout("timer()", 1000);
+}
+
+afterRest = function() {
+				alarm.play();
+			clockTicking.pause();
+			timerFunction = "nextLog";
+}
+
+afterStopped = function() {
+				clockTicking.pause();
+			_strangerId = Session.get("strangerId");
+
+			_logOpts = {
+				strangerId: Session.get("strangerId"),
+				logId: Session.get("currentLogId")
+			}
+
+			Meteor.call("stopLog", _logOpts);
+
+			Session.set("previousLogId", currentLogId);
+			currentLogId = null;
+			Session.set("currentLogId", currentLogId);
+}
+
+ringAlarm = function() {
+			alarm = $("#alarm")[0];
+			alarm.load();
+			alarm.play();
+}
+
+nextLog = function() {
+			ringAlarm();
+			setFutureDate(0.2);
+
+			timerFunction = "rest";
+			
+			_logOpts = {
+				strangerId: Session.get("strangerId"),
+				logId: Session.get("currentLogId")
+			}
+
+			Meteor.call("endLog", _logOpts);
+
+			Session.set("previousLogId", currentLogId);
+			currentLogId = null;
+			Session.set("currentLogId", currentLogId);
+
+			$(".afterSecondStrangerLog").slideDown();
+
+			setTimeout("timer()", 1000);
+}
+setFutureDate = function(minutes) {
+	_now = new Date();
+futureDate = new Date(_now.getTime() + minutes*60000);
 }
