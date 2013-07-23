@@ -1,0 +1,292 @@
+<template name="welcomeStranger">
+<div class="row-fluid">
+	<div class="span8 center program hero-unit">
+		<div class="firstStrangerLog">
+			<div class="text-center">
+				<h2>Hello, stranger!</h2>
+				<p class="lead">
+					 Do you want to be a little more productive today? <br/><strong>Great!</strong><br/> Let me help you.
+				</p>
+				<p class="lead">
+					 Here is the thing.<br/>
+					Set aside <strong>25 minutes.</strong>
+				</p>
+				<p class="lead">
+					 Set your phone to "do not disturb", airplane, silent, whatever. <br/>
+					Turn off the tv, radio. Close FB window. Close your email.
+				</p>
+				<p class="lead">
+					 After you click 'start' you enter the world where<br/><strong>Your goal is all that matters.</strong><br/>
+					 <strong>Your goal is all that exists.</strong>
+				</p>
+				<p class="lead">
+					<strong>Concentrate.</strong>
+				</p>
+				<p class="lead">
+					 Don't worry about anything else.
+				</p>
+				<p class="lead">
+					 If someone asks you a question, show them the running timer. <br/>
+					<strong>They can wait.</strong>
+				</p>
+				<p class="lead">
+					 After 25 minutes<br/> you will have a moment to check your phone, FB, email.<br/>
+					</p>
+				<p class="lead">You will have enough time to make sure<br/>
+					 <strong>The world didn't collapse without your constant attention.</strong><br/>
+					 <strong>And trust me, it won't.</strong></br>
+					</p>
+					<p class="lead"><small>
+					 If something super important actually happens you will know about it at most 25 minutes later.</small>
+				</p>
+				<p class="lead">
+					<strong>If you can sleep or shower without checking your phone, <br/>
+					you can do this as well.</strong>
+				</p>
+				<p class="lead">
+					<strong> I believe in you. </strong>
+				</p>
+				<p class="lead">
+					In a moment you will find a little input area.<br/>
+					What I will ask you to do is to type there, shortly,<br/>
+					<strong>your tasks for the next 25 minutes.</strong>
+				</p>
+				<p class="lead">
+					<br/>Don't overthink it. <br/>If you won't finish the task, <br/>
+					you will get back to it in the next run.
+				</p>
+				<p class="lead">
+					 But try to think about <br/>
+					<strong>small steps.</strong>
+				</p>
+				<p class="lead">
+					 Steps that should be achieveable in about 25 minutes,<br/>
+					while getting you </br/>
+					<strong>further and further into your desired direction.</strong>
+				</p>
+				<p class="lead">
+					 They can be quite vague <br/><small>("keep painting")</small><br/>or specific<br/><small>("program notifications system").</small>
+				</p>
+				<p class="lead">
+					 It doesn't really matter.
+				</p>
+				<p class="lead">
+					 As long as you have a<br/><strong>good idea of what you expect to achieve in a short run</strong>,<br/> that's perfect.
+				</p>
+				<p class="lead">
+					 When you start. </b><br/><strong>Do just that, nothing else.</strong>
+				</p>
+				<p class="lead">
+					 If you come up with another great idea while working,<br/> good for you - write it down, as briefly as possible.<br/> You can work on it in the next run.</br>
+					 <small>Or maybe tomorrow</small></p>
+					 <p class="lead">
+					<strong>Just don't multitask!</strong>
+				</p>
+				<p class="lead">
+					 Over time, you will feel more and more concentrated and your ability to predict how much you can get done in 25 minutes session will highly improve.
+				</p>
+				<p class="lead">
+					 Go ahead!
+				</p>
+				<div class="controls-row">
+					<form class="tasks">
+						<input class="span9 newTask" type="text" placeholder="My task">
+						<button class="btn span3" type="submit">Add Task!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						 {{#isolate}} {{#with log}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+				<div class="areYouReady" style="display: none;">
+					<p class="lead">
+						 Ok! Are you done?<br/>
+						Great!<br/>
+						<strong>Take a deep breath,</strong> click
+					</p>
+					<p>
+						<button class="btn btn-primary btn-large btn-startFirst" type="button">START</button>
+					</p>
+					<p class="lead">
+						<strong>Let the magic works.</strong>
+					</p>
+					<p class="lead">
+						 I'll see you back in a moment!
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="timer" style="display: none">
+			<div style="color:#EEE;height:520px;width:100%">
+				<div style="position:relative;width:500px;margin:auto">
+					<div style="position:absolute;left:10px;top:10px">
+						<input class="knob minute" data-min="0" data-max="25" data-bgcolor="#ddd" data-fgcolor="#244AA3" data-width="500" data-height="500" data-thickness=".3">
+					</div>
+					<div style="position:absolute;left:110px;top:110px">
+						<input class="knob second" data-min="0" data-max="60" data-bgcolor="#ddd" data-displayinput=true data-width="300" data-height="300" data-thickness=".45" data-fgcolor="#3B4B70">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="secondStrangerLog" style="display: none;">
+			
+				<div class="text-center">
+				 <h2>Hey! You are back!</h2>
+				 <p class="lead">
+				  How was it?
+				  </p>
+				  <p class="lead"> Now, type down what you've done,</br> 
+				  	And what you are planning to do next.</p>
+				  <p class="lead"> Then take a little break. </p>
+				  <p class="lead"> Not more than the 5 minutes I'm already counting for you. </p>
+				  <p class="lead"> Check your phone,<br/> text people back,</br> stretch out a little,</br> <strong>relax</strong>.</p>
+				  <p class="lead"> When you feel ready, click "start" again.</p>
+
+			<p class="lead">
+				Tasks from your previous log
+			</p>
+			<div class="row-fluid">
+				<ul class="pull-left text-left">
+				{{#isolate}} {{#with previousLog}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}	
+				</ul>
+			</div>
+
+				  <div class="controls-row">
+					<form class="nextDones">
+						<input class="span9 newNextDone" type="text" placeholder="Type briefly what have you done">
+						<button class="btn span3" type="submit">Done!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						 {{#isolate}} {{#with log}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+
+ 				<div class="controls-row">
+					<form class="nextTasks">
+						<input class="span9 newNextTask" type="text" placeholder="My task">
+						<button class="btn span3" type="submit">Add Task!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						 {{#isolate}} {{#with log}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+
+				<div class="areYouReady" style="display: none;">
+					<p class="lead">
+						 Alrighty! Is that it?<br/>
+						Great!<br/>
+						<strong>Take a deep breath,</strong> click
+					</p>
+					<p>
+						<button class="btn btn-primary btn-large btn-startNext" type="button">START</button>
+					</p>
+					<p class="lead">
+						 I'll see you in a bit with the last set of instructions!
+					</p>
+				</div>
+				</div>
+
+
+			
+		</div>
+		<div class="afterSecondStrangerLog" style="display: none;">
+			<div class="text-center">
+			 <h2>Hello again!</h2>
+			<div class="afterThirdHide">
+				 <p class="lead">What you've just experienced is a work flow called</br> <strong>"pomodoro technique"</strong></p>
+				 <p class="lead">Simple, but effective technique that will let you get things done.</p>
+				 <p class="lead">Imagine doing this for a couple weeks.</p>
+				 <p class="lead">Imagine the <br/>
+				 <strong>sense of accomplishment</strong><br/>
+				  that you are gonna feel looking at <br/>
+				  <strong>your own log of steadily getting things done.</strong></p>
+				  <p class="lead">
+				   Imagine observing how</br>
+				   <strong>little steps has been taking you further and further,</strong></p>
+				   <p class="lead">
+				   <strong>25 minutes at a time.</strong>
+				   </p>
+				   <p class="lead"> Imagine</br>
+				   <strong>Where you can be in a month from now,</br>
+				   a year from now,<br/>
+				   ten years from now.</br></strong></p>
+				   <p class="lead">
+				   	<small>Click in right top corner to</small></br>
+				   <strong>Sign Up</strong></br>
+				   to keep track of your progress,</br>
+				   <small>or, if you don't feel like, don't do it.</small></br>
+				   <p class="lead">It doesn't matter.</br>
+				   <strong>Just keep working.</br>
+				   	Keep moving forward.</strong>
+				   <p class="lead">You will thank me later. :)
+				   </p>
+				   <p class="lead">
+				   Łukasz "gozda" Gandecki</br>
+				   <small>2013</small>
+				</p>
+
+				<br/><br/>
+			</div>
+			<p class="lead">
+				Tasks from your previous log
+			</p>
+			<div class="row-fluid">
+				<ul class="pull-left text-left">
+				{{#isolate}} {{#with previousLog}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}	
+				</ul>
+			</div>
+								  <div class="controls-row">
+					<form class="lastDones">
+						<input class="span9 newNextDone lastDone" type="text" placeholder="Type briefly what have you worked on">
+						<button class="btn span3" type="submit">Done!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						 {{#isolate}} {{#with log}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+
+ 				<div class="controls-row">
+					<form class="lastTasks">
+						<input class="span9 newNextTask lastTask" type="text" placeholder="My task">
+						<button class="btn span3" type="submit">Add Task!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						 {{#isolate}} {{#with log}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+
+				<div class="areYouReady" style="display: none;">
+					<p>
+						<button class="btn btn-primary btn-large btn-startLast" type="button">START</button>
+					</p>
+				</div>
+			
+		</div>
+		</div>
+	</div>
+	<div class="span8 center program hero-unit">
+		<blockquote>
+			<small><strong>Stephen King</strong> once said: </small>
+			<p class="lead text-center">
+				 When asked,<br/><strong>"How do you write?"</strong><br/>I invariably answer<br/><strong>"One word at a time"</strong><br/> and the answer is invariably dismissed.
+			</p>
+			<p class="lead text-center">
+				 But.<br>
+				<strong>That is all it is.</strong><br/>It sounds too simple to be true.<br/><strong>But consider the Great Wall of China</strong>,<br/> if you will:<br/><br/><strong>One stone at a time, man.</strong><br/>That's all. <br/><strong>One stone at a time.</strong>
+				<p class="lead text-center">
+					 But I've read <br/></br><strong>You can see that motherfucker <br/>from space<br/> without a telescope.</strong>
+				</p>
+			</blockquote>
+		</div>
+	</div>
+</div>
+</template>

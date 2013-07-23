@@ -1,0 +1,50 @@
+.main {
+    background: #26393D;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+body {
+    background: #26393D;
+    color: #666666;
+}
+.navbarTop { margin-bottom: 10px }
+.navbar .navbar-inner {
+    border-radius: 0px 0px 3px 3px;
+}
+
+.dropdown-menu span {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    line-height: 20px;
+    color: #bbb;
+    white-space: nowrap;
+}
+
+.footer {
+	text-align: center;
+}
+
+.container {
+	margin-top: 80px;
+	}
+
+	.program {
+		background: #f2f2f2;
+		
+	}
+	.hero-unit {
+		padding-top: 10px;
+	}
+
+	.program h2 {
+		margin-top: 10px;
+		margin-bottom: 30px;
+	}
+
+	.newTask {
+		background: #26393D !important;
+		color: #f2f2f2 !important;	
+	}

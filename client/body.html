@@ -1,0 +1,14 @@
+<template name="body">
+<div id="main">
+	{{#isolate}}{{>header}}{{/isolate}}
+	<div id="transition">
+		<div class="container">
+			{{#isolate}}{{renderPage}}{{/isolate}}
+		</div>
+	</div>
+	<div class="push"></div>
+</div>
+
+{{> footer }}
+
+</template>
