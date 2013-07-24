@@ -56,8 +56,9 @@ Template.home.events({
 			    $("html, body").animate({ scrollTop: 0 }, 600);
 
 			_now = new Date();
+			setFutureDate(25);
 			// futureDate = new Date(_now.getTime() + 25*60000);
-			futureDate = new Date(_now.getTime() + 1 * 10000);
+			// futureDate = new Date(_now.getTime() + 1 * 10000);
 			timer();
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
@@ -88,7 +89,8 @@ Template.home.events({
 			    $("html, body").animate({ scrollTop: 0 }, 600);
 
 			_now = new Date();
-			futureDate = new Date(_now.getTime() + 1 * 10000);
+			setFutureDate(25);
+			// futureDate = new Date(_now.getTime() + 1 * 10000);
 			timer();
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();

@@ -54,3 +54,66 @@ body {
 		padding-bottom: 10px;
 		margin-bottom: 10px;
 	}
+
+	.single-login-button {
+		color: #fff !important;
+		display: block;
+		background: #219bcc;
+		height: 50px;
+padding: 4px 12px;
+margin-bottom: 0px;
+font-size: 20px;
+line-height: 20px;
+text-align: center;
+text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
+vertical-align: middle;
+cursor: pointer;
+border-width: 1px;
+border-style: solid;
+-moz-border-top-colors: none;
+-moz-border-right-colors: none;
+-moz-border-bottom-colors: none;
+-moz-border-left-colors: none;
+border-image: none;
+border-radius: 4px 4px 4px 4px;
+box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+background-color: rgb(0, 109, 204);
+background-image: linear-gradient(to bottom, rgb(0, 136, 204), rgb(0, 68, 204));
+background-repeat: repeat-x;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	}
+
+	.single-login-button:hover , .single-login-button:focus {
+		color: #ffffff;
+background-color: #0044cc;
+
+color: #333333;
+text-decoration: none;
+background-position: 0 -15px;
+-webkit-transition: background-position 0.1s linear;
+-moz-transition: background-position 0.1s linear;
+-o-transition: background-position 0.1s linear;
+transition: background-position 0.1s linear;
+	}
+
+	.sign-in-text-facebook {
+		color: #fff !important;
+margin-top:10px;
+}
+
+ #login-dropdown-list {
+	text-align: center !important;
+}
+.minute {
+	font-size: 115px !important;
+	letter-spacing: 15px;
+	margin-left: -368px !important;
+
+
+}
+.second {
+	font-size: 60px !important;
+	letter-spacing: -5px;
+}
+	

@@ -50,8 +50,9 @@ Template.welcomeStranger.events({
 
 			_strangerId = Session.get("strangerId");
 			_now = new Date();
+			setFutureDate(25);
 			// futureDate = new Date(_now.getTime() + 25*60000);
-			futureDate = new Date(_now.getTime() + 1 * 10000);
+			// futureDate = new Date(_now.getTime() + 25 * 60000);
 			timer();
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
@@ -92,7 +93,8 @@ Template.welcomeStranger.events({
 						    $("html, body").animate({ scrollTop: 0 }, 600);
 
 			_now = new Date();
-			futureDate = new Date(_now.getTime() + 1 * 10000);
+			setFutureDate(25);
+			// futureDate = new Date(_now.getTime() + 1 * 10000);
 			timer();
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
@@ -111,7 +113,8 @@ Template.welcomeStranger.events({
 						    $("html, body").animate({ scrollTop: 0 }, 600);
 
 			_now = new Date();
-			futureDate = new Date(_now.getTime() + 1 * 10000);
+			setFutureDate(25);
+			// futureDate = new Date(_now.getTime() + 1 * 10000);
 			timer();
 			clockTicking = $("#clock-ticking")[0];
 			clockTicking.load();
@@ -213,7 +216,7 @@ timer = function() {
 		} else if (timerFunction === "firstUserLog") {
 			afterFirstUserLog();
 		}
-		
+
 	} else {
 				console.log("timerFunction inside timer", timerFunction, _dsec, _dmin);
 
@@ -225,8 +228,8 @@ timer = function() {
 afterFirstStrangerLog = function() {
 $(".btn-stop").hide();
 			ringAlarm();
-
-			setFutureDate(0.1);
+			setFutureDate(5);
+			// setFutureDate(0.1);
 			
 			$(".secondStrangerLog").slideDown();
 
@@ -285,7 +288,8 @@ ringAlarm = function() {
 nextLog = function() {
 	$(".btn-stop").hide();
 			ringAlarm();
-			setFutureDate(0.2);
+			setFutureDate(5);
+			// setFutureDate(0.2);
 
 			timerFunction = "rest";
 			
@@ -316,7 +320,7 @@ afterFirstUserLog = function() {
 $(".btn-stop").hide();
 			ringAlarm();
 
-			setFutureDate(0.1);
+			setFutureDate(5);
 			
 			$(".nextUserLogs").slideDown();
 
