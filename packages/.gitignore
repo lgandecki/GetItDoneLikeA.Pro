@@ -2,3 +2,6 @@ router
 page-js-ie-support
 accounts-ui-bootstrap-dropdown
 jquery-ui
+bootboxjs
+spin
+paginated-subscription

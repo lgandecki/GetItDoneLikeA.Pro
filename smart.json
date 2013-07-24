@@ -2,6 +2,9 @@
   "packages": {
     "router": {},
     "accounts-ui-bootstrap-dropdown": {},
-    "jquery-ui": {}
+    "jquery-ui": {},
+    "bootboxjs": {},
+    "spin": {},
+    "paginated-subscription": {}
   }
 }

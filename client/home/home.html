@@ -1,0 +1,108 @@
+<template name="home">
+	<div class="row-fluid">
+		<div class="span8 center program hero-unit">
+			<div class="firstUserLog">
+				<div class="text-center">
+					<h2>Well, hello there!</h2>
+					<p class="lead">Are we going to get it done today?</p>
+					<p class="lead">Let's do it!</p>
+					<div class="controls-row">
+						<form class="tasks">
+							<input class="span9 newTask" type="text" placeholder="My task">
+							<button class="btn span3 whatthe" type="submit">Add Task!</button>
+						</form>
+					</div>
+					<div class="row-fluid">
+						<ul class="pull-left text-left">
+							{{#isolate}} {{#with log}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+						</ul>
+					</div>
+					<div class="areYouReady" style="display: none;">
+						<p class="lead">
+							Ok! Are you done?<br/>
+							Great!<br/>
+							<strong>Take a deep breath,</strong> click
+						</p>
+						<p>
+							<button class="btn btn-primary btn-large btn-startFirst" type="button">START</button>
+						</p>
+						<p class="lead">
+							<strong>Let the magic works.</strong>
+						</p>
+						<p class="lead">
+							I'll see you back in a moment!
+						</p>
+					</div>
+				</div>
+			</div>
+					{{>timer}}
+
+			<div class="nextUserLogs" style="display: none;">
+								<div class="text-center">
+
+				{{#if isSessionStopped}}
+								<h2>Too much distraction, huh?</h2>
+				<p class="lead">That's ok. Let's try again!</p>
+				<p class="lead">Type briefly what have you done</p>
+				<p class="lead">Here is a list of your last tasks to make it easier</p>
+
+				{{else}}
+				<h2>Well done!</h2>
+				<p class="lead">Alrighty! Let's do it again!</p>
+				<p class="lead">Type briefly what have you done</p>
+				<p class="lead">Here is a list of your last tasks to make it easier</p>
+				{{/if}}
+
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						{{#isolate}} {{#with previousLog}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}	
+					</ul>
+				</div>
+
+				<div class="controls-row">
+					<form class="nextDones">
+						<input class="span9 newNextDone" type="text" placeholder="Type briefly what have you done">
+						<button class="btn span3" type="submit">Done!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						{{#isolate}} {{#with previousLog}} {{#each done}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+
+				<div class="controls-row">
+					<form class="nextTasks">
+						<input class="span9 newNextTask" type="text" placeholder="My task">
+						<button class="btn span3" type="submit">Add Task!</button>
+					</form>
+				</div>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						{{#isolate}} {{#with log}} {{#each todo}} {{> task }} {{/each}} {{/with}} {{/isolate}}
+					</ul>
+				</div>
+
+				<div class="areYouReady" style="display: none;">
+					<p class="lead">
+						Is that it?<br/>
+						Great!<br/>
+						<strong>Take a deep breath,</strong> click
+					</p>
+					<p>
+						<button class="btn btn-primary btn-large btn-startNext" type="button">START</button>
+					</p>
+					<p class="lead">
+						I'll see you in a bit!
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		</div>
+		{{>stephenKingQuote}}
+
+		</div>
+
+	</div>
+</template>

@@ -1,4 +1,4 @@
-Template.body.created = function() {
+Template.welcomeStranger.created = function() {
 	_strangerId = new Meteor.Collection.ObjectID()._str;
 	Session.set("strangerId", _strangerId);
 }
@@ -6,7 +6,8 @@ Template.body.created = function() {
 Meteor.subscribe("userData");
 
 if (Meteor.user()) {
-	Meteor.subscribe("logs");
+	Meteor.subscribe("previousLog", Session.get("previousLogId"));
+	Meteor.subscribe("currentLog", Session.get("currentLogId"));
 } else {
 	Meteor.subscribe("strangerLogs", Session.get("strangerId"));
 }

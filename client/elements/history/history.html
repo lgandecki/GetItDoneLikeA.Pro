@@ -1,0 +1,44 @@
+<template name="logsHistory">
+		<div class="row-fluid">
+		<div class="span8 center program hero-unit">
+			<div class="firstUserLog">
+				<div class="text-center">
+	{{#isolate}}{{#each log}}
+	{{#isolate}}{{> logRow}}{{/isolate}}
+	{{/each}}{{/isolate}}
+
+				<div style="margin-bottom: 50px; position: absolute; display: none;" class="mySpinner">{{>spinner}}</div>
+
+	</div>
+</div>
+</div>
+</div>
+
+</template>
+
+<template name="logRow">
+<div class='logRow'>
+	{{timeStarted}} - {{timeEnded}} 
+<br/>
+	<h3>Planned tasks:</h3>
+			<div class="row-fluid">
+				<ul class="pull-left text-left">
+					<strong>
+				{{#isolate}} {{#each todo}}	<li class="task">{{this}}</li>
+{{/each}}{{/isolate}}	
+			</strong>
+				</ul>
+			</div>
+{{#if done}}
+			<h3>Completed tasks:</h3>
+				<div class="row-fluid">
+					<ul class="pull-left text-left">
+						<strong>
+						 {{#isolate}} {{#each done}}	<li class="task">{{this}}</li>
+{{/each}} {{/isolate}}
+						</strong>
+					</ul>
+				</div>
+				{{/if}}
+</div>
+	</template>

@@ -107,6 +107,7 @@ Meteor.methods({
 		}
 		else if (Meteor.user()) {
 			_query.userId = Meteor.userId();
+			Meteor.users.update({_id: _query.userId}, {$inc: {completed: 1 }});
 		}
 		else {
 			throw new Meteor.Error(401, "You need to have an ID to end a log");
@@ -114,6 +115,16 @@ Meteor.methods({
 		_now = new Date();
 
 		Logs.update(_query, {$set: {timeEnded: _now, success: true}});
-
+	},
+	transferStrangersLogs: function(strangerId) {
+		if (strangerId && Meteor.user()) {
+			Logs.update({strangerId: strangerId}, {$set: {userId: Meteor.userId()}}, {multi: true});
+			_count = Logs.find({strangerId: strangerId, userId: Meteor.userId()}).count();
+			if (_count > 0) {
+				Meteor.users.update({_id: Meteor.userId()}, {$set: {completedLogs: _count}});
+				return "changed";
+			}
+			return "noChanges";
+		}
 	}
 });

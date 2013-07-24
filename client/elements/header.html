@@ -1,15 +1,21 @@
 <template name="header">
       <header class="navbar navbarTop">
     <div class="navbar-inner navbar-fixed-top">
-        {{#if isLoggedIn}}
-            {{#isolate}}Test{{/isolate}}
-            {{/if}}
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
       <a class="brand" href="{{homePath}}">Get It Done Like A.Pro</a>
+      {{#if isLoggedIn}}
+      <ul class="nav">
+             <li class="active"> <a href="/">Home</a></li>
+    <li>  <a href="/logsHistory">Logs History</a></li>
+
+     <li> <a href="/hallOfFame">Hall Of Fame</a></li>
+  </ul>
+              {{/if}}
+
       <div class="nav-collapse collapse">
         <ul class="nav pull-right">
           <li>{{loginButtons}}</li>

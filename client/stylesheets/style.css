@@ -48,3 +48,9 @@ body {
 		background: #26393D !important;
 		color: #f2f2f2 !important;	
 	}
+
+	.logRow {
+		border-bottom: 3px dashed #ddd;
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+	}

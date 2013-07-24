@@ -28,6 +28,7 @@ Template.welcomeStranger.events({
 					window.clearTimeout(_renderer);
 					_renderer = window.setTimeout(function() {
 						$(".areYouReady").slideDown();
+
 					}, 100);
 					// 1500
 				}
@@ -45,6 +46,8 @@ Template.welcomeStranger.events({
 		$(".firstStrangerLog").slideUp(function() {
 
 			$(".timer").slideDown();
+			    $("html, body").animate({ scrollTop: 0 }, 600);
+
 			_strangerId = Session.get("strangerId");
 			_now = new Date();
 			// futureDate = new Date(_now.getTime() + 25*60000);
@@ -86,6 +89,8 @@ Template.welcomeStranger.events({
 		e.preventDefault();
 		_strangerId = Session.get("strangerId");
 		$(".secondStrangerLog").slideUp(function() {
+						    $("html, body").animate({ scrollTop: 0 }, 600);
+
 			_now = new Date();
 			futureDate = new Date(_now.getTime() + 1 * 10000);
 			timer();
@@ -103,6 +108,8 @@ Template.welcomeStranger.events({
 		e.preventDefault();
 		_strangerId = Session.get("strangerId");
 		$(".afterSecondStrangerLog").slideUp(function() {
+						    $("html, body").animate({ scrollTop: 0 }, 600);
+
 			_now = new Date();
 			futureDate = new Date(_now.getTime() + 1 * 10000);
 			timer();
@@ -141,6 +148,7 @@ addTask = function(newTask) {
 
 addDone = function(newDone) {
 	if (newDone && newDone !== "") {
+		_strangerId = Session.get("strangerId");
 		_doneOpts = {
 			newDone: newDone,
 			strangerId: _strangerId,
@@ -179,9 +187,7 @@ Template.welcomeStranger.log = function() {
 }
 
 
-Template.welcomeStranger.rendered = function() {
-	$(".knob").knob();
-}
+
 
 timer = function() {
 	_currentDate = new Date();
@@ -192,25 +198,32 @@ timer = function() {
 		$mm = $(".minute");
 	$ss.val(_dsec).trigger("change");
 	$mm.val(_dmin).trigger("change");
-	if (_dsec < 1 && _dmin === 0) {
+	if (_dsec < 1 && _dmin < 1) {
+		console.log("timerFunction inside timer", timerFunction);
 		if (timerFunction === "firstStrangerLog") {
 			afterFirstStrangerLog();
 		} else if (timerFunction === "rest") {
 			afterRest();
 		} else if (timerFunction === "stopped") {
+			console.log("are we ever here?");	
 			afterStopped();
 
 		} else if (timerFunction === "nextLog") {
 			nextLog();
+		} else if (timerFunction === "firstUserLog") {
+			afterFirstUserLog();
 		}
+		
 	} else {
+				console.log("timerFunction inside timer", timerFunction, _dsec, _dmin);
+
 		setTimeout("timer()", 1000);
 	}
 }
 
 
 afterFirstStrangerLog = function() {
-
+$(".btn-stop").hide();
 			ringAlarm();
 
 			setFutureDate(0.1);
@@ -239,6 +252,7 @@ afterRest = function() {
 }
 
 afterStopped = function() {
+	$(".btn-stop").hide();
 				clockTicking.pause();
 			_strangerId = Session.get("strangerId");
 
@@ -252,6 +266,14 @@ afterStopped = function() {
 			Session.set("previousLogId", currentLogId);
 			currentLogId = null;
 			Session.set("currentLogId", currentLogId);
+
+
+			if (Session.get("strangerId")) {
+				$(".afterSecondStrangerLog").slideDown();
+} else {
+	$(".nextUserLogs").slideDown();
+}
+			setTimeout("timer()", 1000);
 }
 
 ringAlarm = function() {
@@ -261,6 +283,7 @@ ringAlarm = function() {
 }
 
 nextLog = function() {
+	$(".btn-stop").hide();
 			ringAlarm();
 			setFutureDate(0.2);
 
@@ -277,11 +300,36 @@ nextLog = function() {
 			currentLogId = null;
 			Session.set("currentLogId", currentLogId);
 
-			$(".afterSecondStrangerLog").slideDown();
-
+			if (Session.get("strangerId")) {
+				$(".afterSecondStrangerLog").slideDown();
+} else {
+	$(".nextUserLogs").slideDown();
+}
 			setTimeout("timer()", 1000);
 }
 setFutureDate = function(minutes) {
 	_now = new Date();
 futureDate = new Date(_now.getTime() + minutes*60000);
+}
+
+afterFirstUserLog = function() {
+$(".btn-stop").hide();
+			ringAlarm();
+
+			setFutureDate(0.1);
+			
+			$(".nextUserLogs").slideDown();
+
+			timerFunction = "rest";
+
+			_logOpts = {
+				logId: Session.get("currentLogId")
+			}
+			Meteor.call("endLog", _logOpts);
+
+			Session.set("previousLogId", currentLogId);
+			currentLogId = null;
+			Session.set("currentLogId", currentLogId);
+
+			setTimeout("timer()", 1000);
 }
